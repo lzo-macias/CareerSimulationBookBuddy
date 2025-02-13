@@ -1,18 +1,34 @@
 import { useState } from 'react'
 import bookLogo from './assets/books.png'
+import Navigations from './components/Navigations'
+import Books from './components/Books'
+import Account from './components/Account';
+import Login from './components/Login';
+import Register from './components/Register';
+import SingleBook from './components/SingleBook';
+import Authenticate from './components/ProtectedRoute';
 
+import { Routes, Route } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
 function App() {
-  const [token, setToken] = useState(null)
-
+  const [token, setToken] = useState(null);
   return (
+
     <>
       <h1><img id='logo-image' src={bookLogo}/>Library App</h1>
-
-      <p>Complete the React components needed to allow users to browse a library catalog, check out books, review their account, and return books that they've finished reading.</p>
-
-      <p>You may need to use the `token` in this top-level component in other components that need to know if a user has logged in or not.</p>
-
-      <p>Don't forget to set up React Router to navigate between the different views of your single page application!</p>
+      <Navigations token={token}/>
+      
+      <Routes>
+          <Route path = "/" element = {<Books/>}/>
+          <Route path = "/Books" element = {<Books/>}/>
+          <Route element = {<ProtectedRoute/>}>
+            <Route path = "/Account" element = {<Account token={token}/>}/>
+          </Route>
+          <Route path = "/Login" element = {<Login setToken={setToken}/>}/>
+          <Route path = "/Register" element = {<Register setToken={setToken}/>}/>
+          <Route path = "/books/:bookid" element = {<SingleBook/>}/>
+          <Route path='*' element={<Books/>} />
+        </Routes>
     </>
   )
 }

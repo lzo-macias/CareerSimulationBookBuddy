@@ -2,12 +2,71 @@ body {
   font-family: Georgia, serif;
   background-color: #f8f8f8;
   margin: 0;
-  padding: 0;
+  padding: 0px 0px;
 }
 
 #logo-image {
   width: 30px;
   margin-right: 10px;
 }
+
+a, .nav a {
+  color: black; /* Inherits color from parent (instead of default blue) */
+  font-weight: bold; /* Makes the text bold */
+}
+
+.nav {
+  background-color: rgb(158, 111, 50);
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 8px ;
+  margin-bottom: 30px;
+}
+
+.mainBookContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin: 15px;
+}
+.individualBookContainer{
+  padding: 1rem 1rem;
+  border: 1px solid gray;
+  border-radius: .25rem;
+  background-color: rgb(236, 193, 136);
+}
+.individualBookContainer img{
+  border: 1px solid black;
+  display: block;
+  width: 100%;
+  max-height: 200px;  
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  object-position: center;
+}
+
+.singleBookMainContainer {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+  max-height: 600px;
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.singleBookMainContainer img {
+  border: 1px solid black;
+  display: block;
+  /* width: 100%; */
+  max-height: 200px;  
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  object-position: center;
+}
+
+
+
+
 
 /* Add your own custom styles here */
