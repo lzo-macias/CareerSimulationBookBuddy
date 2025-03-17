@@ -4,26 +4,26 @@ import axios from "axios";
 function Account() {
   const [accountInfo, setAccountInfo] = useState(null);
   const [error, setError] = useState(null);
-  const token = localStorage.getItem("token"); // Get token from localStorage
+  const token = localStorage.getItem("token");
+
+  const fetchAccount = async () => {
+    if (!token) return; 
+
+    try {
+      const result = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/users/me`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setAccountInfo(result.data);
+    } catch (err) {
+      console.error("Error fetching account info:", err);
+      setError("Failed to load account information.");
+    }
+  };
 
   useEffect(() => {
-    if (!token) return; // Don't fetch if no token
-
-    const fetchAccount = async () => {
-      try {
-        const result = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/users/me`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        setAccountInfo(result.data);
-      } catch (err) {
-        console.error("Error fetching account info:", err);
-        setError("Failed to load account information.");
-      }
-    };
-
     fetchAccount();
-  }, [token]); // Re-fetch if token changes
+  }, [token]);
 
   if (!token) {
     return <div>Please log in or create an account.</div>;
@@ -49,9 +49,11 @@ function Account() {
         }
       );
       console.log(result.data);
-      alert("Return Successful")
+      alert("Return Successful");
+      await fetchAccount();
     } catch (err) {
       console.error("Error returning book:", err);
+      alert("Failed to return book. Please try again.");
     }
   };
 
@@ -63,26 +65,33 @@ function Account() {
       <p>Email: {accountInfo.email}</p>
 
       <h3>Borrowed Books:</h3>
-      {accountInfo.books && accountInfo.books.length > 0 ? (
-        <div>
-          {accountInfo.books.map((book) => (
-            <div key = {book.id} >
-            <h2>{book.title}</h2>
-          <img src={book.coverimage} alt={book.title} />
-          <span>
-            <p>by {book.author}</p>
-            <p>ID: {book.id}</p></span>
-            <button onClick={() => {
-              console.log(book.id)
-              returnBook(book.id);
-              fetchAccount();
-            }}>Return Book</button>
+      <div className="mainBookContainer">
+        {accountInfo.books && accountInfo.books.length > 0 ? (
+          accountInfo.books.map((book) => (
+            <div key={book.id} className="individualBookContainer">
+              <div className='singlebooktitleandavailability'>
+                <h2>{book.title}</h2>
+                <p className="bookAvailibility">
+                  Book Availability: {book.available ? "Available" : "Not Available"}
+                </p>
+              </div>
+              <img src={book.coverimage} alt={book.title} />
+              <span>
+                <p>by {book.author}</p>
+                <p>ID: {book.id}</p>
+              </span>
+              <button onClick={() => {
+                console.log(book.id);
+                returnBook(book.id);
+              }}>
+                Return Book
+              </button>
             </div>
-          ))}
-        </div>
-      ) : (
-        <p>No borrowed books.</p>
-      )}
+          ))
+        ) : (
+          <p>No borrowed books.</p>
+        )}
+      </div>
     </div>
   );
 }

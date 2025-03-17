@@ -17,6 +17,9 @@ function App() {
     <>
       <h1><img id='logo-image' src={bookLogo}/>Library App</h1>
       <Navigations token={token}/>
+      <div className='mainmaincontainer'>
+
+      </div>
       
       <Routes>
           <Route path = "/" element = {<Books/>}/>

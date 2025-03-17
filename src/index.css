@@ -24,6 +24,11 @@ a, .nav a {
   margin-bottom: 30px;
 }
 
+.mainmaincontainer {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 .mainBookContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -51,8 +56,13 @@ a, .nav a {
   justify-content: center;
   margin: 50px;
   max-height: 600px;
-  border: 1px solid black;
   padding: 20px;
+}
+
+.singleBookDisplayContainer {
+  background-color: rgb(236, 193, 136);
+  border-radius: .25rem;
+  border: 1px solid gray;
 }
 
 .singleBookMainContainer img {
@@ -66,7 +76,3 @@ a, .nav a {
 }
 
 
-
-
-
-/* Add your own custom styles here */
