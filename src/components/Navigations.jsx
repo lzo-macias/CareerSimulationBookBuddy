@@ -1,14 +1,17 @@
 /* TODO - add your code to create a functional React component that renders a navigation bar for the different views in your single page application. You may consider conditionally rendering some options - for example 'Login' should be available if someone has not logged in yet. */
 
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import React, { useState, useEffect } from "react";
 
 function Navigations() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const navigate = useNavigate(); // 🚀 Import useNavigate for smooth redirection
 
   function handleClick(){
     localStorage.removeItem('token'); // Remove the stored token
     setIsLoggedIn(false);
+    navigate('/Books');
+    window.location.reload();
     }
   return (
     <div className="nav">

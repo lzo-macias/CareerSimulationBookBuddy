@@ -40,7 +40,7 @@ function Register({setToken}) {
         setEmail("");
         setPassword("");
         alert ("Registration Successful")
-        navigate("/Login");
+        navigate("/Books");
       }
     } catch (err) {
       console.error("Error response:", err.response?.data || err.message);
